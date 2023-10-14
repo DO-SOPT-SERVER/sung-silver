@@ -37,5 +37,6 @@ out/
 .vscode/
 
 ### settings
+!**/resources
 *.yml
 *.yaml
