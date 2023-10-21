@@ -12,7 +12,7 @@ public enum SuccessType {
     GET_ALL_MEMBER_INFO(HttpStatus.OK, "전체 사용자 조회에 성공했습니다"),
     GET_MEMBER_INFO(HttpStatus.OK, "사용자 조회에 성공했습니다"),
     DELETE_MEMBER(HttpStatus.OK, "사용자 삭제에 성공했습니다"),
-    UPDATE_MEMBER(HttpStatus.OK, "사용자 정보 수정에 성공했습니다");
+    UPDATE_MEMBER_INFO(HttpStatus.OK, "사용자 정보 수정에 성공했습니다");
 
     private final HttpStatus status;
     private final String message;

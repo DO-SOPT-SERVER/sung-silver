@@ -1,15 +1,15 @@
 package com.server.dosopt.seminar.controller;
 
+import com.server.dosopt.seminar.common.dto.ApiResponseDTO;
+import com.server.dosopt.seminar.dto.ErrorType.SuccessType;
 import com.server.dosopt.seminar.dto.request.MemberCreateRequestDTO;
 import com.server.dosopt.seminar.dto.request.MemberProfileUpdateRequestDTO;
+import com.server.dosopt.seminar.dto.response.MemberCreateResponseDTO;
 import com.server.dosopt.seminar.dto.response.MemberGetResponseDTO;
+import com.server.dosopt.seminar.dto.response.MemberProfileUpdateResponseDTO;
 import com.server.dosopt.seminar.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -19,35 +19,34 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping(value = "/{memberId}", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<MemberGetResponseDTO> getMemberProfileV2(@PathVariable Long memberId) {
-        return ResponseEntity.ok(memberService.getMemberById(memberId));
+    // 단건 조회
+    @GetMapping(value = "/{memberId}")
+    public ApiResponseDTO<MemberGetResponseDTO> getMemberProfileV2(@PathVariable Long memberId) {
+        return ApiResponseDTO.success(SuccessType.GET_MEMBER_INFO, memberService.getMemberById(memberId));
     }
 
     // 생성
     @PostMapping
-    public ResponseEntity<Void> createMember(@RequestBody MemberCreateRequestDTO request) {
-        URI location =  URI.create(memberService.create(request));
-        return ResponseEntity.created(location).build();
+    public ApiResponseDTO<MemberCreateResponseDTO> createMember(@RequestBody MemberCreateRequestDTO request) {
+        return ApiResponseDTO.success(SuccessType.MEMBER_CREATE_SUCCESS, MemberCreateResponseDTO.of(memberService.create(request)));
     }
 
     // 목록 조회
     @GetMapping
-    public ResponseEntity<List<MemberGetResponseDTO>> getMembersProfile() {
-        return ResponseEntity.ok(memberService.getMembers());
+    public ApiResponseDTO<List<MemberGetResponseDTO>> getMembersProfile() {
+        return ApiResponseDTO.success(SuccessType.GET_ALL_MEMBER_INFO, memberService.getMembers());
     }
 
     // 수정
     @PatchMapping("/{memberId}")
-    public ResponseEntity<Void> updateMemberSoptInfo(@PathVariable Long memberId, @RequestBody MemberProfileUpdateRequestDTO request) {
-        memberService.updateSOPT(memberId, request);
-        return ResponseEntity.noContent().build();
+    public ApiResponseDTO<MemberProfileUpdateResponseDTO> updateMemberSoptInfo(@PathVariable Long memberId, @RequestBody MemberProfileUpdateRequestDTO request) {
+        return ApiResponseDTO.success(SuccessType.UPDATE_MEMBER_INFO, memberService.updateSOPT(memberId, request));
     }
 
     // 삭제
     @DeleteMapping("/{memberId}")
-    public ResponseEntity deleteMember(@PathVariable Long memberId) {
+    public ApiResponseDTO deleteMember(@PathVariable Long memberId) {
         memberService.deleteMember(memberId);
-        return ResponseEntity.noContent().build();
+        return ApiResponseDTO.success(SuccessType.DELETE_MEMBER);
     }
 }

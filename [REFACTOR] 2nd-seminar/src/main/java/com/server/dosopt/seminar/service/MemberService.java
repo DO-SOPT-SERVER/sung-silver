@@ -5,6 +5,7 @@ import com.server.dosopt.seminar.domain.SOPT;
 import com.server.dosopt.seminar.dto.request.MemberCreateRequestDTO;
 import com.server.dosopt.seminar.dto.request.MemberProfileUpdateRequestDTO;
 import com.server.dosopt.seminar.dto.response.MemberGetResponseDTO;
+import com.server.dosopt.seminar.dto.response.MemberProfileUpdateResponseDTO;
 import com.server.dosopt.seminar.repository.MemberJpaRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -45,9 +46,10 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateSOPT(Long memberId, MemberProfileUpdateRequestDTO request) {
+    public MemberProfileUpdateResponseDTO updateSOPT(Long memberId, MemberProfileUpdateRequestDTO request) {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
         member.updateSOPT(new SOPT(request.generation(), request.part()));
+        return MemberProfileUpdateResponseDTO.of(member.getSopt().getGeneration(), member.getSopt().getPart());
     }
 
     @Transactional
