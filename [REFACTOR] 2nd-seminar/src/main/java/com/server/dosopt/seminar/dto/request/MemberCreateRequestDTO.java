@@ -4,7 +4,7 @@ import com.server.dosopt.seminar.domain.SOPT;
 import lombok.Data;
 
 @Data
-public class MemberCreateRequest {
+public class MemberCreateRequestDTO {
     private String name;
     private String nickname;
     private int age;

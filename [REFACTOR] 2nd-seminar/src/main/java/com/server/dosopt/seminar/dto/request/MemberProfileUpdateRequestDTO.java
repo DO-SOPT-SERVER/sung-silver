@@ -4,7 +4,7 @@ import com.server.dosopt.seminar.domain.Part;
 import lombok.Data;
 
 @Data
-public class MemberProfileUpdateRequest {
+public class MemberProfileUpdateRequestDTO {
     private int generation;
     private Part part;
 }
