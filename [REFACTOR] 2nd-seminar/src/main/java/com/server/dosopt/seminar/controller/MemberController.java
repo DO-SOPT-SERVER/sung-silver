@@ -21,12 +21,12 @@ public class MemberController {
 
     @GetMapping("/{memberId}")
     public ResponseEntity<MemberGetResponseDTO> getMemberProfileV1(@PathVariable Long memberId) {
-        return ResponseEntity.ok(memberService.getMemberByIdV2(memberId));
+        return ResponseEntity.ok(memberService.getMemberById(memberId));
     }
 
     @GetMapping(value = "/{memberId}/v2", consumes = "application/json", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<MemberGetResponseDTO> getMemberProfileV2(@PathVariable Long memberId) {
-        return ResponseEntity.ok(memberService.getMemberByIdV2(memberId));
+        return ResponseEntity.ok(memberService.getMemberById(memberId));
     }
 
     // 생성

@@ -21,7 +21,7 @@ public class MemberService {
 
     private final MemberJpaRepository memberJpaRepository;
 
-    public MemberGetResponseDTO getMemberByIdV2(Long id) {
+    public MemberGetResponseDTO getMemberById(Long id) {
         return MemberGetResponseDTO.of(memberJpaRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("존재하지 않는 회원입니다.")));
     }
