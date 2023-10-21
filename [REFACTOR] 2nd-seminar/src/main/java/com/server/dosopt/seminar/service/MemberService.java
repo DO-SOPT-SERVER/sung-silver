@@ -48,7 +48,7 @@ public class MemberService {
     @Transactional
     public MemberProfileUpdateResponseDTO updateSOPT(Long memberId, MemberProfileUpdateRequestDTO request) {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
-        member.updateSOPT(new SOPT(request.generation(), request.part()));
+        member.updateSOPT(SOPT.builder().generation(request.generation()).part(request.part()).build());
         return MemberProfileUpdateResponseDTO.of(member.getSopt().getGeneration(), member.getSopt().getPart());
     }
 
