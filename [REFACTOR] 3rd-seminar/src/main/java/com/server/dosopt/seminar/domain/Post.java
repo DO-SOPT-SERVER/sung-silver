@@ -25,6 +25,9 @@ public class Post extends BaseTimeEntity{
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(name="category_id")
+    private CategoryId categoryId;
+
     @Builder
     public Post(String title, String content, Member member) {
         this.title = title;

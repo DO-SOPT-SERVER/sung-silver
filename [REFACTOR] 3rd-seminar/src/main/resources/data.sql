@@ -1,3 +1,9 @@
+INSERT INTO CATEGORY(ID, CONTENT)
+VALUES
+    (1, '일상'),
+    (2, '여행'),
+    (3, '공부');
+
 INSERT INTO MEMBER(MEMBER_ID, NICKNAME, NAME, AGE, PART, GENERATION)
 VALUES (1, '유난', '최윤한', 36, 'SERVER', 33),
        (2, 'DDD', '정준서', 24, 'SERVER', 33),
