@@ -24,8 +24,8 @@ public class Member extends BaseTimeEntity {
     @Embedded
     private SOPT sopt;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private final List<Post> posts = new ArrayList<>();
+//    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL) // 양방향 연관관계 -> Cascade 고려
+//    private final List<Post> posts = new ArrayList<>();
 
     @Builder
     public Member(String name, String nickname, int age, SOPT sopt) {
