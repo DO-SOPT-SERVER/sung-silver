@@ -6,10 +6,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +23,9 @@ public class Member {
 
     @Embedded
     private SOPT sopt;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private final List<Post> posts = new ArrayList<>();
 
     @Builder
     public Member(String name, String nickname, int age, SOPT sopt) {
