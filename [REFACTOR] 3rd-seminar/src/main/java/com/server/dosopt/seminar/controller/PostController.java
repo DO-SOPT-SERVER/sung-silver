@@ -1,8 +1,11 @@
 package com.server.dosopt.seminar.controller;
 
+import com.server.dosopt.seminar.common.response.ApiResponse;
+import com.server.dosopt.seminar.common.response.Success;
 import com.server.dosopt.seminar.dto.request.PostCreateRequest;
 import com.server.dosopt.seminar.dto.request.PostUpdateRequest;
 import com.server.dosopt.seminar.dto.response.PostGetResponse;
+import com.server.dosopt.seminar.dto.response.PostUriResponse;
 import com.server.dosopt.seminar.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,30 +23,30 @@ public class PostController {
     private final PostService postService;
 
     @GetMapping("{postId}")
-    public ResponseEntity<PostGetResponse> getPostById(@PathVariable Long postId) {
-        return ResponseEntity.ok(postService.getById(postId));
+    public ApiResponse<PostGetResponse> getPostById(@PathVariable Long postId) {
+        return ApiResponse.success(Success.GET_POST_SUCCESS, postService.getById(postId));
     }
 
     @GetMapping
-    public ResponseEntity<List<PostGetResponse>> getPosts(@RequestHeader(CUSTOM_AUTH_ID) Long memberId) {
-        return ResponseEntity.ok(postService.getPosts(memberId));
+    public ApiResponse<List<PostGetResponse>> getPosts(@RequestHeader(CUSTOM_AUTH_ID) Long memberId) {
+        return ApiResponse.success(Success.GET_POSTS_SUCCESS,postService.getPosts(memberId));
     }
 
     @PostMapping
-    public ResponseEntity<Void> createPost(@RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) {
+    public ApiResponse<PostUriResponse> createPost(@RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) {
         URI location = URI.create("/api/post/" + postService.create(request, memberId));
-        return ResponseEntity.created(location).build();
+        return ApiResponse.success(Success.CREATE_POST_SUCCESS,PostUriResponse.of(location.toString()));
     }
 
     @PatchMapping("{postId}")
-    public ResponseEntity<Void> updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest request) {
+    public ApiResponse updatePost(@PathVariable Long postId, @RequestBody PostUpdateRequest request) {
         postService.editContent(postId, request);
-        return ResponseEntity.noContent().build();
+        return ApiResponse.success(Success.UPDATE_POST_SUCCESS);
     }
 
     @DeleteMapping("{postId}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long postId) {
+    public ApiResponse deletePost(@PathVariable Long postId) {
         postService.deleteById(postId);
-        return ResponseEntity.noContent().build();
+        return ApiResponse.success(Success.DELETE_POST_SUCCESS);
     }
 }

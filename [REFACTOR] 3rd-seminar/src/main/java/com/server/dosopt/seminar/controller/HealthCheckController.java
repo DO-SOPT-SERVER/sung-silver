@@ -1,10 +1,8 @@
 package com.server.dosopt.seminar.controller;
 
-import com.server.dosopt.seminar.dto.ApiResponse;
+import com.server.dosopt.seminar.common.response.ApiResponse;
 import com.server.dosopt.seminar.dto.ErrorType.SuccessType;
 import com.server.dosopt.seminar.dto.HealthCheckResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
