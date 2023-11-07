@@ -5,10 +5,9 @@ import com.server.dosopt.seminar.common.response.Success;
 import com.server.dosopt.seminar.dto.request.PostCreateRequest;
 import com.server.dosopt.seminar.dto.request.PostUpdateRequest;
 import com.server.dosopt.seminar.dto.response.PostGetResponse;
-import com.server.dosopt.seminar.dto.response.PostUriResponse;
+import com.server.dosopt.seminar.dto.response.UriResponse;
 import com.server.dosopt.seminar.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -33,9 +32,9 @@ public class PostController {
     }
 
     @PostMapping
-    public ApiResponse<PostUriResponse> createPost(@RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) {
+    public ApiResponse<UriResponse> createPost(@RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) {
         URI location = URI.create("/api/post/" + postService.create(request, memberId));
-        return ApiResponse.success(Success.CREATE_POST_SUCCESS,PostUriResponse.of(location.toString()));
+        return ApiResponse.success(Success.CREATE_POST_SUCCESS, UriResponse.of(location.toString()));
     }
 
     @PatchMapping("{postId}")
