@@ -13,11 +13,11 @@ public class ApiResponse<T> {
     private T data;
 
     public static ApiResponse success(Success success) {
-        return new ApiResponse<>(success.getHttpStatusCode(), success.getMessage());
+        return new ApiResponse<>(success.getHttpStatus(), success.getMessage());
     }
 
     public static <T> ApiResponse<T> success(Success success, T data) {
-        return new ApiResponse<T>(success.getHttpStatusCode(), success.getMessage(), data);
+        return new ApiResponse<T>(success.getHttpStatus(), success.getMessage(), data);
     }
 
     public static ApiResponse error(Error error) {

@@ -19,7 +19,11 @@ public enum Success {
     private final HttpStatus httpStatus;
     private final String message;
 
-    public int getHttpStatusCode(){
+    public int getHttpStatus(){
         return httpStatus.value();
+    }
+
+    public String getMessage(){
+        return message;
     }
 }

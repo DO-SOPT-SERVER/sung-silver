@@ -1,5 +1,7 @@
 package com.server.dosopt.seminar.service;
 
+import com.server.dosopt.seminar.common.exception.model.NotFoundException;
+import com.server.dosopt.seminar.common.response.Error;
 import com.server.dosopt.seminar.domain.Member;
 import com.server.dosopt.seminar.domain.SOPT;
 import com.server.dosopt.seminar.dto.request.MemberCreateRequest;
@@ -28,7 +30,7 @@ public class MemberService {
 
     public MemberGetResponse getMemberByIdV2(Long id) {
         return MemberGetResponse.of(memberJpaRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("존재하지 않는 회원입니다.")));
+                () -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION,Error.NOT_FOUND_USER_EXCEPTION.getMessage())));
     }
 
     public MemberGetResponse getMemberByIdV3(Long id) {
@@ -55,13 +57,13 @@ public class MemberService {
 
     @Transactional
     public void updateSOPT(Long memberId, MemberProfileUpdateRequest request) {
-        Member member = memberJpaRepository.findByIdOrThrow(memberId);
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(()->new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION,Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
         member.updateSOPT(new SOPT(request.getGeneration(), request.getPart()));
     }
 
     @Transactional
     public void deleteMember(Long memberId) {
-        Member member = memberJpaRepository.findByIdOrThrow(memberId);
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(()->new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION,Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
         memberJpaRepository.delete(member);
     }
 }
