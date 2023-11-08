@@ -6,7 +6,6 @@ import com.server.dosopt.seminar.common.response.Success;
 import com.server.dosopt.seminar.dto.request.PostCreateRequest;
 import com.server.dosopt.seminar.dto.request.PostUpdateRequest;
 import com.server.dosopt.seminar.dto.response.PostGetResponse;
-import com.server.dosopt.seminar.dto.response.UriResponse;
 import com.server.dosopt.seminar.service.PostService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -39,7 +38,7 @@ public class PostController {
     @PostMapping
     public void createPost(HttpServletResponse response, @RequestHeader(CUSTOM_AUTH_ID) Long memberId, @RequestBody PostCreateRequest request) throws IOException {
         URI location = URI.create("/api/post/" + postService.create(request, memberId));
-        sendContentURI(response,objectMapper,Success.CREATE_POST_SUCCESS, location.toString());
+        ApiResponse.sendContentURI(response,objectMapper,Success.CREATE_POST_SUCCESS, location.toString());
     }
 
     @PatchMapping("{postId}")
