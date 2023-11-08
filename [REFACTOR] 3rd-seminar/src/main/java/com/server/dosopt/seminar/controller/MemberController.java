@@ -1,17 +1,18 @@
 package com.server.dosopt.seminar.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.dosopt.seminar.common.response.ApiResponse;
 import com.server.dosopt.seminar.common.response.Success;
 import com.server.dosopt.seminar.dto.request.MemberCreateRequest;
 import com.server.dosopt.seminar.dto.request.MemberProfileUpdateRequest;
 import com.server.dosopt.seminar.dto.response.MemberGetResponse;
-import com.server.dosopt.seminar.dto.response.UriResponse;
 import com.server.dosopt.seminar.service.MemberService;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
 
+    private final ObjectMapper objectMapper;
     private final MemberService memberService;
 
     @GetMapping("/{memberId}")
@@ -34,9 +36,9 @@ public class MemberController {
 
     // 생성
     @PostMapping
-    public ApiResponse<UriResponse> createMember(@RequestBody MemberCreateRequest request) {
+    public void createMember(HttpServletResponse response, @RequestBody MemberCreateRequest request) throws IOException {
         URI location =  URI.create(memberService.create(request));
-        return ApiResponse.success(Success.SIGNUP_SUCCESS, UriResponse.of(location.toString()));
+        ApiResponse.sendContentURI(response, objectMapper,Success.SIGNUP_SUCCESS, location.toString());
     }
 
     // 목록 조회
