@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 public enum Success {
 
     // 200 OK
+    GET_HEALTH_CHECK_SUCCESS(HttpStatus.OK, "서버 상태 체크에 성공했습니다"),
     GET_MEMBER_SUCCESS(HttpStatus.OK, "회원 조회에 성공했습니다"),
     GET_MEMBERS_SUCCESS(HttpStatus.OK, "회원 목록 조회에 성공했습니다"),
     GET_POST_SUCCESS(HttpStatus.OK, "게시물 조회에 성공했습니다"),

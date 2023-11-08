@@ -1,6 +1,7 @@
 package com.server.dosopt.seminar.controller;
 
 import com.server.dosopt.seminar.common.response.ApiResponse;
+import com.server.dosopt.seminar.common.response.Success;
 import com.server.dosopt.seminar.dto.ErrorType.SuccessType;
 import com.server.dosopt.seminar.dto.HealthCheckResponse;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,6 @@ public class HealthCheckController {
 
     @GetMapping("/v6")
     public ApiResponse healthCheckV6(){
-        return ApiResponse.success(SuccessType.OK_SUCCESS,true);
+        return ApiResponse.success(Success.GET_HEALTH_CHECK_SUCCESS);
     }
 }

@@ -49,7 +49,8 @@ public class PostService {
     }
 
     public List<PostGetResponse> getPosts(Long memberId) {
-        return postJpaRepository.findAllByMemberId(memberId)
+        Member member = memberJpaRepository.findById(memberId).orElseThrow(() -> new NotFoundException(Error.NOT_FOUND_USER_EXCEPTION,Error.NOT_FOUND_USER_EXCEPTION.getMessage()));
+        return postJpaRepository.findAllByMember(member)
                 .stream()
                 .map(post -> PostGetResponse.of(post))
                 .toList();
