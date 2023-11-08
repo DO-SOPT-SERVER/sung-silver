@@ -1,11 +1,16 @@
 package com.server.dosopt.seminar.common.response;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.server.dosopt.seminar.dto.ErrorType.ErrorType;
 import com.server.dosopt.seminar.dto.ErrorType.SuccessType;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
@@ -25,6 +30,19 @@ public class ApiResponse<T> {
 
     public static ApiResponse error(Error error) {
         return new ApiResponse<>(error.getHttpStatus(), error.getMessage());
+    }
+
+    public static void sendContentURI(
+            HttpServletResponse response, ObjectMapper objectMapper, Success success, String URI)
+            throws IOException {
+        response.addHeader("Content-Type", "application/json; charset=UTF-8");
+        response.setStatus(success.getHttpStatus());
+        response.setHeader("location", URI);
+
+        ApiResponse responseBody = ApiResponse.success(success);
+        String jsonResponse = objectMapper.writeValueAsString(responseBody);
+
+        response.getWriter().write(jsonResponse);
     }
 
 }
