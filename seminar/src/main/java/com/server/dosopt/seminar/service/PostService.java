@@ -28,9 +28,10 @@ public class PostService {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
         Post post = postJpaRepository.save(
                 Post.builder()
-                        .member(member)
                         .title(request.title())
-                        .content(request.content()).build());
+                        .content(request.content())
+                        .member(member)
+                        .build());
         return post.getId().toString();
     }
 
