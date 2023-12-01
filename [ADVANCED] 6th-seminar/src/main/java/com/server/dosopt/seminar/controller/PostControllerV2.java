@@ -1,6 +1,7 @@
 package com.server.dosopt.seminar.controller;
 
 import com.server.dosopt.seminar.dto.request.PostCreateRequest;
+import com.server.dosopt.seminar.dto.response.ImagePresignedUrlResponse;
 import com.server.dosopt.seminar.service.PostServiceV2;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
