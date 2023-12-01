@@ -40,3 +40,4 @@ out/
 !**/resources
 *.yml
 *.yaml
+data.sql
