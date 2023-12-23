@@ -45,13 +45,13 @@ public class SecurityConfig {
 //                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 //                .build();
 //    }
-@Bean
-SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    return http.csrf().disable()
+    @Bean
+    SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        return http.csrf().disable()
             .authorizeHttpRequests()
             .anyRequest().permitAll()
             .and().build();
-}
+    } 
 
     @Bean
     public WebMvcConfigurer corsConfigurer() {
