@@ -27,11 +27,12 @@ public class PostService {
     public String create(PostCreateRequest request, Long memberId) {
         Member member = memberJpaRepository.findByIdOrThrow(memberId);
         Post post = postJpaRepository.save(
-                Post.builder()
+                Post.builderWithImageUrl()
                         .title(request.title())
                         .content(request.content())
                         .member(member)
-                        .build());
+                        .build()
+        );
         return post.getId().toString();
     }
 
